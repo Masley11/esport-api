@@ -1,8 +1,8 @@
 {
-  "name": "esport-api",
+  "name": "gamemasterx/esport-api",
+  "description": "API PHP pour les résultats e-sport",
   "require": {},
   "scripts": {
     "start": "php -S 0.0.0.0:8080 -t ."
   }
 }
-

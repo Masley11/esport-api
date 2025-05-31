@@ -1,22 +1,18 @@
 <?php
 header('Content-Type: application/json');
 
-// Remplace par tes infos réelles Supabase
 $host = 'aws-0-eu-west-2.pooler.supabase.com';
 $port = '6543';
 $db   = 'postgres';
 $user = 'postgres.ajtzkuhsnymajitgdlaw';
-$pass = 'Fataw70359545'; // Remplace par le vrai mot de passe
+$pass = 'Fataw70359545'; // Ton vrai mot de passe Supabase ici
 
 $dsn = "pgsql:host=$host;port=$port;dbname=$db";
 
 try {
-    $pdo = new PDO($dsn, $user, $pass, [
-        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
-    ]);
+    $pdo = new PDO($dsn, $user, $pass);
 } catch (PDOException $e) {
-    http_response_code(500);
-    echo json_encode(['error' => 'Erreur de connexion', 'details' => $e->getMessage()]);
+    echo json_encode(['error' => 'Connexion échouée : ' . $e->getMessage()]);
     exit;
 }
 
@@ -30,9 +26,6 @@ if ($filter !== 'all') {
 }
 
 $sql .= " ORDER BY match_date DESC";
-
 $stmt = $pdo->prepare($sql);
 $stmt->execute($params);
-$results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-echo json_encode($results);
+echo json_encode($stmt->fetchAll(PDO::FETCH_ASSOC));
